@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Portfolio PPG - Praktik Mengajar Mandiri</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display (Headings) & Montserrat (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons (Elegant Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'ivory': '#FAFAFA',
+                        'charcoal': '#222222',
+                        'gold-light': '#FBF5B7',
+                        'gold-solid': '#C5A059',
+                        'gold-dark': '#8A6D3B'
+                    },
+                    backgroundImage: {
+                        'gold-gradient': 'linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
+                        'subtle-pattern': 'radial-gradient(#C5A059 0.5px, transparent 0.5px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFFFFF;
+            color: #222222;
+        }
+
+        /* Text Gradients */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Elegant Thin Borders */
+        .border-gold-thin {
+            border: 1px solid rgba(197, 160, 89, 0.4);
+        }
+        .border-gold-gradient {
+            border-image: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728) 1;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        /* Subdued hover states */
+        .hover-gold-shadow:hover {
+            box-shadow: 0 10px 30px -10px rgba(197, 160, 89, 0.2);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAFAFA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 10px;
+        }
+
+        /* Botanical Line Art Backgrounds (CSS drawing) */
+        .bg-botanical-left {
+            position: relative;
+        }
+        .bg-botanical-left::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 200px; height: 300px;
+            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg"><path d="M0,50 Q100,100 50,200 T150,300" fill="none" stroke="%23C5A059" stroke-width="0.5" opacity="0.3"/><circle cx="50" cy="200" r="2" fill="%23C5A059" opacity="0.3"/></svg>');
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Masonry Grid */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 3; } }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Fade In Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            visibility: hidden;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+        }
+
+        /* Nav Link Active State */
+        .nav-link.active {
+            color: #C5A059;
+            border-bottom: 1px solid #C5A059;
+        }
+    </style>
+</head>
+<body class="font-sans text-charcoal antialiased selection:bg-gold-solid selection:text-white">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100 py-4 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center text-xs uppercase tracking-widest font-medium">
+                <a href="#home" class="font-serif text-lg text-gold-gradient font-bold tracking-wider">PORTFOLIO.</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-6 text-gray-500">
+                    <a href="#home" class="nav-link hover:text-gold-solid transition-colors">Home</a>
+                    <a href="#profile" class="nav-link hover:text-gold-solid transition-colors">Profile</a>
+                    <a href="#perencanaan" class="nav-link hover:text-gold-solid transition-colors">Perencanaan</a>
+                    <a href="#materi" class="nav-link hover:text-gold-solid transition-colors">Materi</a>
+                    <a href="#media" class="nav-link hover:text-gold-solid transition-colors">Media</a>
+                    <a href="#video" class="nav-link hover:text-gold-solid transition-colors">Video Praktik</a>
+                    <a href="#nonmengajar" class="nav-link hover:text-gold-solid transition-colors">Nonmengajar</a>
+                    <a href="#penilaian" class="nav-link hover:text-gold-solid transition-colors">Penilaian</a>
+                    <a href="#refleksi" class="nav-link hover:text-gold-solid transition-colors">Refleksi</a>
+                    <a href="#dokumentasi" class="nav-link hover:text-gold-solid transition-colors">Dokumentasi</a>
+                    <a href="#penutup" class="nav-link hover:text-gold-solid transition-colors">Penutup</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden text-gray-600 hover:text-gold-solid">
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-4 space-y-1 text-xs uppercase tracking-wider text-center">
+                <a href="#home" class="block py-2 text-gray-600 hover:text-gold-solid">Home</a>
+                <a href="#profile" class="block py-2 text-gray-600 hover:text-gold-solid">Profile</a>
+                <a href="#perencanaan" class="block py-2 text-gray-600 hover:text-gold-solid">Perencanaan</a>
+                <a href="#materi" class="block py-2 text-gray-600 hover:text-gold-solid">Materi</a>
+                <a href="#media" class="block py-2 text-gray-600 hover:text-gold-solid">Media</a>
+                <a href="#video" class="block py-2 text-gray-600 hover:text-gold-solid">Video Praktik</a>
+                <a href="#nonmengajar" class="block py-2 text-gray-600 hover:text-gold-solid">Nonmengajar</a>
+                <a href="#penilaian" class="block py-2 text-gray-600 hover:text-gold-solid">Penilaian</a>
+                <a href="#refleksi" class="block py-2 text-gray-600 hover:text-gold-solid">Refleksi</a>
+                <a href="#dokumentasi" class="block py-2 text-gray-600 hover:text-gold-solid">Dokumentasi</a>
+                <a href="#penutup" class="block py-2 text-gray-600 hover:text-gold-solid">Penutup</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="section min-h-screen pt-24 pb-12 flex items-center bg-botanical-left">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center fade-in-section">
+                    
+                    <!-- Text Content -->
+                    <div class="order-2 lg:order-1 text-center lg:text-left space-y-6">
+                        <div class="inline-block border border-gold-solid px-4 py-1 rounded-full text-xs tracking-widest text-gold-solid uppercase mb-4">
+                            E-Portfolio 1
+                        </div>
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-charcoal leading-tight">
+                            Praktik <br>
+                            <span class="text-gold-gradient italic">Mengajar Mandiri</span>
+                        </h1>
+                        <p class="text-gray-500 font-light text-lg max-w-lg mx-auto lg:mx-0">
+                            Dokumentasi, Analisis, dan Refleksi Praktik Pembelajaran <br> Pendidikan Profesi Guru (PPG) Calon Guru
+                        </p>
+                        
+                        <div class="pt-6 border-t border-gray-100 max-w-sm mx-auto lg:mx-0">
+                            <ul class="space-y-3 text-sm text-gray-600">
+                                <li class="flex justify-between border-b border-gray-50 pb-2"><span class="uppercase tracking-wider text-xs">Nama</span> <span class="font-medium text-charcoal">[NAMA] Ratih Fatimah</span></li>
+                                <li class="flex justify-between border-b border-gray-50 pb-2"><span class="uppercase tracking-wider text-xs">NIM</span> <span class="font-medium text-charcoal">[NIM] 2518563068</span></li>
+                                <li class="flex justify-between border-b border-gray-50 pb-2"><span class="uppercase tracking-wider text-xs">Bidang Studi</span> <span class="font-medium text-charcoal">[BIDANG STUDI] PGSD</span></li>
+                                <li class="flex justify-between border-b border-gray-50 pb-2"><span class="uppercase tracking-wider text-xs">Sekolah</span> <span class="font-medium text-charcoal">[NAMA SEKOLAH] SDN GIWANGAN</span></li>
+                                <li class="flex justify-between pb-2"><span class="uppercase tracking-wider text-xs">Tahun</span> <span class="font-medium text-charcoal">[TAHUN] 2026</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="pt-6">
+                            <a href="#profile" class="inline-flex items-center space-x-2 bg-transparent border border-gold-solid text-gold-solid px-8 py-3 uppercase tracking-widest text-xs hover:bg-gold-solid hover:text-white transition-all duration-300">
+                                <span>Explore Portfolio</span>
+                                <i class="ph ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Photo Content -->
+                    <div class="order-1 lg:order-2 flex justify-center lg:justify-end relative">
+                        <!-- Decorative Frame -->
+                        <div class="absolute inset-0 bg-gold-gradient opacity-10 transform translate-x-4 translate-y-4"></div>
+                        <div class="absolute inset-0 border border-gold-solid transform -translate-x-4 -translate-y-4"></div>
+                        
+                        <!-- User should replace src with their direct image link -->
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Foto Mahasiswa PPG" 
+                             class="relative z-10 w-full max-w-md h-[500px] object-cover object-top grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="section min-h-screen py-24 bg-ivory">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Profile</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest">Profil Mahasiswa PPG</p>
+                </div>
+
+                <div class="bg-white p-8 md:p-12 shadow-sm border-gold-thin fade-in-section">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+                        <div class="flex justify-center">
+                            <!-- User Photo Profile -->
+                            <div class="relative w-48 h-64">
+                                <div class="absolute inset-0 border border-gold-solid transform translate-x-3 translate-y-3 z-0"></div>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                                     alt="Profile Portrait" 
+                                     class="relative z-10 w-full h-full object-cover shadow-md">
+                            </div>
+                        </div>
+                        
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="font-serif text-2xl text-charcoal border-b border-gray-100 pb-2">[Ratih Fatimah]</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm">
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">NIM</span><span class="font-medium">[2518563068]</span></div>
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">Program</span><span class="font-medium">Pendidikan Profesi Guru (PPG)</span></div>
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">Bidang Studi</span><span class="font-medium">[PGSD]</span></div>
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">Sekolah Praktik</span><span class="font-medium">[SDN GIWANGAN]</span></div>
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">Kelas</span><span class="font-medium">[1, 3, 4, 5]</span></div>
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">Mata Pelajaran</span><span class="font-medium">[MTK, PPKN, IPAS]</span></div>
+                                <div><span class="text-xs uppercase text-gray-400 block mb-1">Tahun</span><span class="font-medium">[2026]</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Teaching Philosophy -->
+                    <div class="mt-16 pt-12 border-t border-gray-100 text-center">
+                        <i class="ph-fill ph-quotes text-4xl text-gold-solid opacity-30 mb-4 block"></i>
+                        <h4 class="text-xs uppercase tracking-widest text-gray-400 mb-6">My Teaching Philosophy</h4>
+                        <p class="font-serif text-xl lg:text-2xl text-charcoal italic leading-relaxed max-w-3xl mx-auto">
+                            “Saya berkomitmen untuk menjadi guru yang reflektif, kreatif, adaptif, dan mampu menciptakan pembelajaran yang bermakna sesuai dengan kebutuhan peserta didik.”
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Core Pedagogical Approach (Fitur Tambahan) -->
+                <div class="mt-24 fade-in-section">
+                    <div class="text-center mb-10">
+                        <h4 class="text-sm uppercase tracking-widest text-gold-solid">My Pedagogical Approach</h4>
+                        <div class="w-8 h-px bg-gold-solid mx-auto mt-2"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="bg-white p-6 border-gold-thin text-center hover-gold-shadow">
+                            <i class="ph ph-users text-2xl text-gold-solid mb-3"></i>
+                            <h5 class="text-xs font-bold uppercase mb-2">Student Centered</h5>
+                            <p class="text-xs text-gray-500">Pembelajaran berpusat pada kebutuhan peserta didik.</p>
+                        </div>
+                        <div class="bg-white p-6 border-gold-thin text-center hover-gold-shadow">
+                            <i class="ph ph-brain text-2xl text-gold-solid mb-3"></i>
+                            <h5 class="text-xs font-bold uppercase mb-2">Deep Learning</h5>
+                            <p class="text-xs text-gray-500">Mindful • Meaningful • Joyful</p>
+                        </div>
+                        <div class="bg-white p-6 border-gold-thin text-center hover-gold-shadow">
+                            <i class="ph ph-heart text-2xl text-gold-solid mb-3"></i>
+                            <h5 class="text-xs font-bold uppercase mb-2">PSE</h5>
+                            <p class="text-xs text-gray-500">Kesadaran diri, manajemen, sosial, relasi, keputusan.</p>
+                        </div>
+                        <div class="bg-white p-6 border-gold-thin text-center hover-gold-shadow">
+                            <i class="ph ph-steps text-2xl text-gold-solid mb-3"></i>
+                            <h5 class="text-xs font-bold uppercase mb-2">TaRL / TaTL</h5>
+                            <p class="text-xs text-gray-500">Sesuai tingkat kemampuan dan kebutuhan murid.</p>
+                        </div>
+                        <div class="bg-white p-6 border-gold-thin text-center hover-gold-shadow">
+                            <i class="ph ph-tree-structure text-2xl text-gold-solid mb-3"></i>
+                            <h5 class="text-xs font-bold uppercase mb-2">Bloom</h5>
+                            <p class="text-xs text-gray-500">C1 → C2 → C3 → C4 → C5 → C6</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="perencanaan" class="section py-24 bg-white relative">
+            <!-- Subtle background accent -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-subtle-pattern opacity-50 z-0 pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Analisis Rancangan Pembelajaran</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Planning as the Foundation of Meaningful Learning</p>
+                    <p class="max-w-2xl mx-auto mt-6 text-sm text-gray-600">Rancangan pembelajaran merupakan fondasi utama dalam melaksanakan Praktik Mengajar Mandiri, dirancang untuk memfasilitasi kebutuhan unik setiap peserta didik.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- CARD 01 -->
+                    <div class="bg-ivory p-8 border border-gray-100 hover-gold-shadow fade-in-section">
+                        <div class="flex items-center mb-6">
+                            <span class="text-2xl font-serif text-gold-solid mr-4">01.</span>
+                            <h3 class="text-sm uppercase tracking-widest font-bold">Identitas Pembelajaran</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Mata Pelajaran</span> <strong>[MATA PELAJARAN]</strong></li>
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Kelas/Fase</span> <strong>[KELAS] / [FASE]</strong></li>
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Materi</span> <strong>[MATERI]</strong></li>
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Alokasi Waktu</span> <strong>[ALOKASI WAKTU]</strong></li>
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Model</span> <strong>[MODEL PEMBELAJARAN]</strong></li>
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Metode</span> <strong>[METODE]</strong></li>
+                            <li class="flex justify-between border-b border-gray-200 pb-1"><span>Media</span> <strong>[MEDIA]</strong></li>
+                            <li class="flex justify-between pb-1"><span>Asesmen</span> <strong>[ASESMEN]</strong></li>
+                        </ul>
+                    </div>
+
+                    <!-- CARD 02 -->
+                    <div class="bg-ivory p-8 border border-gray-100 hover-gold-shadow fade-in-section">
+                        <div class="flex items-center mb-6">
+                            <span class="text-2xl font-serif text-gold-solid mr-4">02.</span>
+                            <h3 class="text-sm uppercase tracking-widest font-bold">Analisis Kualitas Rancangan</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            Rancangan pembelajaran dikembangkan dengan prinsip pembelajaran yang berpusat pada murid. Perencanaan tidak hanya memuat tujuan, langkah kegiatan, dan asesmen, tetapi juga mempertimbangkan kebutuhan, kesiapan, karakteristik, serta pengalaman belajar peserta didik.
+                        </p>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            Rancangan mengintegrasikan aktivitas konkret, diskusi, kerja kelompok, praktik, presentasi, refleksi, dan asesmen.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="text-xs bg-white border border-gold-solid text-gold-dark px-3 py-1 rounded-full">Pembelajaran Mendalam</span>
+                            <span class="text-xs bg-white border border-gold-solid text-gold-dark px-3 py-1 rounded-full">PSE</span>
+                            <span class="text-xs bg-white border border-gold-solid text-gold-dark px-3 py-1 rounded-full">TaRL</span>
+                            <span class="text-xs bg-white border border-gold-solid text-gold-dark px-3 py-1 rounded-full">Kontekstual</span>
+                            <span class="text-xs bg-white border border-gold-solid text-gold-dark px-3 py-1 rounded-full">Aktif</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 03 & 04 (Full width split) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                    <!-- CARD 03 -->
+                    <div class="bg-white p-8 border-gold-thin fade-in-section">
+                        <div class="flex items-center mb-6 border-b border-gray-100 pb-4">
+                            <span class="text-2xl font-serif text-gold-solid mr-4">03.</span>
+                            <h3 class="text-sm uppercase tracking-widest font-bold">Pembelajaran Mendalam</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xs font-bold text-gold-dark uppercase mb-2">Berkesadaran (Mindful)</h4>
+                                <p class="text-sm text-gray-600">Memberikan ruang kepada murid untuk mengenali perasaan, mempersiapkan diri, fokus pada kegiatan, memahami tujuan pembelajaran, dan melakukan refleksi.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-gold-dark uppercase mb-2">Bermakna (Meaningful)</h4>
+                                <p class="text-sm text-gray-600">Materi dikaitkan dengan kehidupan sehari-hari, pengalaman nyata, lingkungan sekitar, dan masalah sederhana yang dekat dengan peserta didik.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-gold-dark uppercase mb-2">Menggembirakan (Joyful)</h4>
+                                <p class="text-sm text-gray-600">Menggunakan permainan, ice breaking, media konkret, eksperimen, dan proyek untuk menciptakan suasana belajar yang aman, aktif, dan mendorong keterlibatan.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 04 -->
+                    <div class="bg-white p-8 border-gold-thin fade-in-section">
+                        <div class="flex items-center mb-6 border-b border-gray-100 pb-4">
+                            <span class="text-2xl font-serif text-gold-solid mr-4">04.</span>
+                            <h3 class="text-sm uppercase tracking-widest font-bold">Integrasi PSE</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="ph-fill ph-check-circle text-gold-solid mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase">Kesadaran Diri</h4>
+                                    <p class="text-sm text-gray-500">Murid mengenali perasaan, kesiapan, kekuatan, dan kesulitan belajar.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph-fill ph-check-circle text-gold-solid mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase">Manajemen Diri</h4>
+                                    <p class="text-sm text-gray-500">Mengatur perhatian, mengikuti aturan, mengelola tugas, dan menyelesaikan kegiatan.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph-fill ph-check-circle text-gold-solid mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase">Kesadaran Sosial</h4>
+                                    <p class="text-sm text-gray-500">Menghargai pendapat, perbedaan, dan kebutuhan teman.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph-fill ph-check-circle text-gold-solid mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase">Keterampilan Berelasi</h4>
+                                    <p class="text-sm text-gray-500">Bekerja sama, berdiskusi, berkomunikasi, dan melakukan presentasi.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph-fill ph-check-circle text-gold-solid mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase">Keputusan Bertanggung Jawab</h4>
+                                    <p class="text-sm text-gray-500">Memilih strategi, menyelesaikan masalah, dan mempertimbangkan hasil.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CARD 05 -->
+                <div class="mt-8 bg-ivory p-8 border border-gray-100 fade-in-section">
+                    <div class="flex items-center mb-6">
+                        <span class="text-2xl font-serif text-gold-solid mr-4">05.</span>
+                        <h3 class="text-sm uppercase tracking-widest font-bold">Analisis Taksonomi Bloom</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-6 max-w-3xl">Taksonomi Bloom digunakan untuk menganalisis tingkat kompleksitas proses berpikir murid (harus disesuaikan dengan kesiapan peserta didik), bukan sebagai tahap perkembangan usia anak mutlak.</p>
+                    
+                    <div class="overflow-x-auto mb-8">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr class="border-b-2 border-gold-solid">
+                                    <th class="py-3 px-4 font-serif italic text-charcoal w-24">Level</th>
+                                    <th class="py-3 px-4 uppercase tracking-widest text-xs text-gray-500">Kemampuan</th>
+                                    <th class="py-3 px-4 uppercase tracking-widest text-xs text-gray-500">Contoh Implementasi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600">
+                                <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                                    <td class="py-3 px-4 font-bold">C1</td>
+                                    <td class="py-3 px-4">Mengingat</td>
+                                    <td class="py-3 px-4">Mengenali konsep / fakta.</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                                    <td class="py-3 px-4 font-bold">C2</td>
+                                    <td class="py-3 px-4">Memahami</td>
+                                    <td class="py-3 px-4">Menjelaskan konsep dengan bahasa sendiri.</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                                    <td class="py-3 px-4 font-bold">C3</td>
+                                    <td class="py-3 px-4">Menerapkan</td>
+                                    <td class="py-3 px-4">Menggunakan konsep pada situasi konkret.</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                                    <td class="py-3 px-4 font-bold">C4</td>
+                                    <td class="py-3 px-4">Menganalisis</td>
+                                    <td class="py-3 px-4">Menganalisis hubungan sebab-akibat.</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                                    <td class="py-3 px-4 font-bold">C5</td>
+                                    <td class="py-3 px-4">Mengevaluasi</td>
+                                    <td class="py-3 px-4">Membuktikan atau menilai suatu argumen/hasil.</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-white transition-colors">
+                                    <td class="py-3 px-4 font-bold">C6</td>
+                                    <td class="py-3 px-4">Mencipta</td>
+                                    <td class="py-3 px-4">Menghasilkan produk atau solusi baru.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+                        <div class="bg-white p-4 border-l-2 border-gold-solid">
+                            <strong>Kelas I:</strong> Dominan C1–C3 dengan benda konkret dan visual.
+                        </div>
+                        <div class="bg-white p-4 border-l-2 border-gold-solid">
+                            <strong>Kelas III:</strong> Berkembang dari C1–C3 hingga C6 melalui proyek.
+                        </div>
+                        <div class="bg-white p-4 border-l-2 border-gold-solid">
+                            <strong>Kelas IV:</strong> Dominan C2–C4 melalui penerapan dan analisis.
+                        </div>
+                        <div class="bg-white p-4 border-l-2 border-gold-solid">
+                            <strong>Kelas V:</strong> C4–C5 melalui penyelidikan, eksperimen, dan evaluasi.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 06, 07, 08 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 fade-in-section">
+                    <div class="bg-white p-6 border-t-4 border-gold-solid shadow-sm">
+                        <h3 class="text-xs uppercase tracking-widest font-bold mb-4">06. Kelebihan Rancangan</h3>
+                        <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
+                            <li>Berpusat pada peserta didik.</li>
+                            <li>Dikaitkan kehidupan nyata.</li>
+                            <li>Menggunakan pengalaman konkret.</li>
+                            <li>Mengintegrasikan PSE & TaRL.</li>
+                            <li>Mendukung Pembelajaran Mendalam.</li>
+                            <li>Media bervariasi & asesmen reflektif.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 border-t-4 border-charcoal shadow-sm">
+                        <h3 class="text-xs uppercase tracking-widest font-bold mb-4">07. Area Pengembangan</h3>
+                        <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
+                            <li>Pengelolaan waktu efektif.</li>
+                            <li>Instruksi ringkas dan jelas.</li>
+                            <li>Pemerataan kesempatan berbicara.</li>
+                            <li>Perhatian pada murid pasif.</li>
+                            <li>Konsistensi instrumen asesmen.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gold-light p-6 border-t-4 border-gold-dark shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs uppercase tracking-widest font-bold mb-4 text-gold-dark">08. Tindak Lanjut</h3>
+                            <p class="text-sm text-gold-dark italic font-serif leading-relaxed mb-6">
+                                “Perbaikan pembelajaran berikutnya akan diarahkan pada penguatan manajemen waktu, diferensiasi pembelajaran, pemerataan keterlibatan murid, kejelasan instruksi, serta kesesuaian antara tujuan, aktivitas, dan asesmen.”
+                            </p>
+                        </div>
+                        <a href="https://drive.google.com/drive/folders/1fYmy1VeMIA2VTSCpNssMvTG-kXh15Nkp?usp=sharing" target="_blank" class="block w-full text-center bg-charcoal text-white text-xs uppercase tracking-widest py-3 hover:bg-gold-solid transition-colors">
+                            View Learning Document
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="materi" class="section py-24 bg-ivory">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Analisis Materi Pembelajaran</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Content Analysis</p>
+                    <p class="max-w-2xl mx-auto mt-6 text-sm text-gray-600">Materi yang disusun tidak hanya mempertimbangkan ketepatan isi, tetapi juga keterjangkauan berdasarkan karakteristik dan tingkat perkembangan kognitif peserta didik.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                    <div class="lg:col-span-1 space-y-8">
+                        <!-- 01 KESESUAIAN -->
+                        <div class="bg-white p-6 border-gold-thin fade-in-section">
+                            <h3 class="text-xs uppercase tracking-widest font-bold mb-4 flex items-center"><span class="text-gold-solid mr-2">01.</span> Kesesuaian Materi</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-center"><i class="ph ph-check text-gold-solid mr-2"></i> Tujuan Pembelajaran</li>
+                                <li class="flex items-center"><i class="ph ph-check text-gold-solid mr-2"></i> Capaian Pembelajaran</li>
+                                <li class="flex items-center"><i class="ph ph-check text-gold-solid mr-2"></i> Fase & Kelas</li>
+                                <li class="flex items-center"><i class="ph ph-check text-gold-solid mr-2"></i> Karakteristik Murid</li>
+                                <li class="flex items-center"><i class="ph ph-check text-gold-solid mr-2"></i> Kebutuhan Belajar</li>
+                                <li class="flex items-center"><i class="ph ph-check text-gold-solid mr-2"></i> Kehidupan Sehari-hari</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 04, 05, 06 Evaluasi Materi -->
+                        <div class="bg-white p-6 border-gold-thin fade-in-section">
+                            <h3 class="text-xs uppercase tracking-widest font-bold mb-4 flex items-center"><span class="text-gold-solid mr-2">04.</span> Kelebihan</h3>
+                            <p class="text-xs text-gray-600 mb-4">Kontekstual, visual, konkret, sesuai karakteristik, bahasa sederhana, mendukung pembelajaran aktif.</p>
+                            
+                            <h3 class="text-xs uppercase tracking-widest font-bold mb-4 flex items-center"><span class="text-gray-400 mr-2">05.</span> Perbaikan</h3>
+                            <p class="text-xs text-gray-600 mb-4">Penyederhanaan teks kelas rendah, konsistensi tingkat kesulitan, penyesuaian jumlah materi dengan alokasi waktu.</p>
+                            
+                            <h3 class="text-xs uppercase tracking-widest font-bold mb-2 flex items-center"><span class="text-gold-solid mr-2">06.</span> Pengembangan</h3>
+                            <p class="text-xs font-serif italic text-gold-dark border-l-2 border-gold-solid pl-3">"Materi akan dikembangkan bertahap sehingga murid membangun pemahaman dari pengalaman menuju konsep."</p>
+                        </div>
+                    </div>
+
+                    <!-- 02 KARAKTERISTIK BERDASARKAN JENJANG -->
+                    <div class="lg:col-span-2 space-y-6 fade-in-section">
+                        <h3 class="text-sm uppercase tracking-widest font-bold mb-2 flex items-center"><span class="text-gold-solid mr-2">02.</span> Karakteristik Materi per Jenjang</h3>
+                        
+                        <!-- Tabs simulation using stacked cards -->
+                        <div class="bg-white p-6 border border-gray-100 hover-gold-shadow">
+                            <div class="flex justify-between items-center mb-3">
+                                <h4 class="font-serif font-bold text-lg">Kelas I — Matematika</h4>
+                                <span class="text-xs bg-gold-light text-gold-dark px-2 py-1 rounded">C1 - C3</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3"><strong>Materi:</strong> Pengurangan menggunakan cerita sederhana, benda konkret, aktivitas mencoret, dan Banner Lompat Kelinci.</p>
+                            <div class="bg-gray-50 p-3 text-xs text-gray-600 border-l border-gold-solid">
+                                <strong>Analisis:</strong> Disusun dari pengalaman konkret menuju representasi simbolik. Sesuai kebutuhan anak kelas rendah yang butuh benda nyata, visual, dan gerakan.
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 border border-gray-100 hover-gold-shadow">
+                            <div class="flex justify-between items-center mb-3">
+                                <h4 class="font-serif font-bold text-lg">Kelas III — PPKn</h4>
+                                <span class="text-xs bg-gold-light text-gold-dark px-2 py-1 rounded">C1 - C6</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3"><strong>Materi:</strong> Identitas diri, keluarga, keberagaman, tempat tinggal, dan denah dikaitkan lingkungan kehidupan.</p>
+                            <div class="bg-gray-50 p-3 text-xs text-gray-600 border-l border-gold-solid">
+                                <strong>Analisis:</strong> Memahami konsep melalui pengalaman personal, lalu menerapkannya lewat kegiatan membuat denah atau diorama (C6).
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 border border-gray-100 hover-gold-shadow">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="font-serif font-bold text-lg">Kelas IV — IPAS</h4>
+                                    <span class="text-xs bg-gold-light text-gold-dark px-2 py-1 rounded">C2 - C4</span>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Gaya dan magnet: mendorong meja, mengerem sepeda. Konsep abstrak dikaitkan fenomena yang dapat diamati.</p>
+                            </div>
+                            <div class="bg-white p-6 border border-gray-100 hover-gold-shadow">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="font-serif font-bold text-lg">Kelas V — IPAS</h4>
+                                    <span class="text-xs bg-gold-light text-gold-dark px-2 py-1 rounded">C4 - C5</span>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-3">Magnet dan listrik: simulasi, penyelidikan. Mendorong murid tidak hanya tahu konsep, tapi menganalisis dan mengevaluasi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 DEEP LEARNING VISUAL -->
+                <div class="bg-white p-8 border-gold-gradient text-center fade-in-section">
+                    <h3 class="text-xs uppercase tracking-widest font-bold mb-8 text-gold-dark">03. Keterkaitan dengan Pembelajaran Mendalam</h3>
+                    <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                        <div class="px-6 py-3 border border-gray-200 rounded-full text-sm font-bold tracking-widest">KONKRET</div>
+                        <i class="ph ph-arrow-right text-2xl text-gold-solid hidden md:block"></i>
+                        <i class="ph ph-arrow-down text-2xl text-gold-solid md:hidden"></i>
+                        <div class="px-6 py-3 border border-gray-200 rounded-full text-sm font-bold tracking-widest">KONTEKSTUAL</div>
+                        <i class="ph ph-arrow-right text-2xl text-gold-solid hidden md:block"></i>
+                        <i class="ph ph-arrow-down text-2xl text-gold-solid md:hidden"></i>
+                        <div class="px-6 py-3 bg-gold-solid text-white rounded-full text-sm font-bold tracking-widest">REFLEKTIF</div>
+                    </div>
+                    <p class="mt-6 text-sm text-gray-500 max-w-2xl mx-auto">Materi dimulai dari pengalaman nyata, dikaitkan dengan kehidupan sehari-hari, kemudian diakhiri dengan refleksi agar murid tidak hanya mengetahui konsep tetapi memahami makna pembelajaran.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="media" class="section py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Analisis Media Pembelajaran</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Learning Media Analysis</p>
+                </div>
+
+                <!-- Media Table -->
+                <div class="overflow-x-auto mb-16 fade-in-section shadow-sm border border-gray-100">
+                    <table class="w-full text-left border-collapse text-sm bg-white">
+                        <thead>
+                            <tr class="bg-ivory border-b-2 border-gold-solid">
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-charcoal w-1/5">Media</th>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-charcoal w-1/5">Fungsi</th>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-charcoal w-1/5">Kelebihan</th>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-charcoal w-1/5">Keterbatasan</th>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-charcoal w-1/5">Dampak pd Murid</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 align-top">
+                            <!-- Placeholder Data as requested -->
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-6 font-medium">Benda Konkret / Papan Gaya</td>
+                                <td class="py-4 px-6">Memvisualisasikan gaya gesek/magnet.</td>
+                                <td class="py-4 px-6">Nyata, mudah dipegang, menarik perhatian.</td>
+                                <td class="py-4 px-6">Hanya untuk kelompok kecil.</td>
+                                <td class="py-4 px-6">Antusiasme tinggi, pemahaman konsep abstrak meningkat.</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-6 font-medium">Banner Lompat Kelinci</td>
+                                <td class="py-4 px-6">Aktivitas bergerak untuk MTK (pengurangan).</td>
+                                <td class="py-4 px-6">Kinestetik, menyenangkan (Joyful).</td>
+                                <td class="py-4 px-6">Membutuhkan ruang kelas yang luas.</td>
+                                <td class="py-4 px-6">Murid aktif bergerak, konsep pengurangan mudah diingat.</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-6 font-medium">PhET Simulation / Digital</td>
+                                <td class="py-4 px-6">Simulasi percobaan IPAS Kelas V.</td>
+                                <td class="py-4 px-6">Aman, dapat diulang, visualisasi jelas.</td>
+                                <td class="py-4 px-6">Bergantung pada jaringan internet & proyektor.</td>
+                                <td class="py-4 px-6">Mampu menganalisis sebab-akibat (C4).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Deep Learning Analysis -->
+                    <div class="bg-ivory p-8 border-gold-thin fade-in-section">
+                        <h3 class="font-serif text-xl mb-6 text-gold-dark border-b border-gray-200 pb-2">Berdasarkan Deep Learning</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-xs font-bold uppercase">Mindful</h4>
+                                <p class="text-xs text-gray-600">Media memusatkan perhatian murid melalui visual, demonstrasi, dan aktivitas langsung.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase">Meaningful</h4>
+                                <p class="text-xs text-gray-600">Media konkret membuat konsep abstrak dekat dengan kehidupan nyata.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase">Joyful</h4>
+                                <p class="text-xs text-gray-600">Permainan, banner, dan eksperimen menciptakan belajar aktif dan menyenangkan.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloom Visual -->
+                    <div class="bg-white p-8 border-gold-thin fade-in-section flex flex-col justify-center items-center text-center">
+                        <h3 class="font-serif text-xl mb-6 text-gold-dark border-b border-gray-200 pb-2 w-full">Korelasi Taksonomi Bloom</h3>
+                        <div class="w-full space-y-3 text-xs tracking-wider uppercase font-medium">
+                            <div class="flex justify-between items-center"><span class="text-gray-500">PPT / Gambar</span> <span class="bg-gray-100 px-2 py-1 rounded">C1 - C2</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">Benda Konkret</span> <span class="bg-gray-100 px-2 py-1 rounded">C2 - C3</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">LKPD</span> <span class="bg-gray-100 px-2 py-1 rounded">C2 - C4</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">Simulasi / Eksperimen</span> <span class="bg-gray-100 px-2 py-1 rounded">C3 - C5</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gold-solid">Proyek / Diorama</span> <span class="bg-gold-light text-gold-dark px-2 py-1 rounded">C5 - C6</span></div>
+                        </div>
+                    </div>
+
+                    <!-- PSE & Reflection -->
+                    <div class="bg-ivory p-8 border-gold-thin fade-in-section flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl mb-4 text-gold-dark border-b border-gray-200 pb-2">Dukungan PSE</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">Penggunaan media mendorong interaksi sosial. Saat eksperimen kelompok atau menggunakan papan labirin, murid melatih kerja sama, komunikasi, saling membantu, dan keberanian mengambil keputusan.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gold-solid/30">
+                            <p class="font-serif italic text-sm text-charcoal">"Media pembelajaran bukan sekadar alat bantu, melainkan sarana menciptakan pengalaman belajar yang konkret, interaktif, bermakna, dan menyenangkan."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Placeholder -->
+                <div class="fade-in-section">
+                    <h3 class="text-xs uppercase tracking-widest font-bold mb-6 text-center text-gray-400">Media Gallery</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Use generic professional placeholdes -->
+                        <div class="aspect-square border border-gold-solid p-1"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&q=80" alt="Media 1" class="w-full h-full object-cover"></div>
+                        <div class="aspect-square border border-gold-solid p-1"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400&q=80" alt="Media 2" class="w-full h-full object-cover"></div>
+                        <div class="aspect-square border border-gold-solid p-1"><img src="https://images.unsplash.com/photo-1516382799247-87df95d790b7?w=400&q=80" alt="Media 3" class="w-full h-full object-cover"></div>
+                        <div class="aspect-square border border-gold-solid p-1"><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&q=80" alt="Media 4" class="w-full h-full object-cover"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="video" class="section py-24 bg-charcoal text-white relative overflow-hidden">
+            <!-- Decorative Gold line in background -->
+            <div class="absolute left-0 top-1/2 w-full h-px bg-gold-solid opacity-20 transform -translate-y-1/2 pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-white">Analisis Video Praktik Mengajar</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                </div>
+
+                <!-- Video Main Area -->
+                <div class="bg-black aspect-video max-w-4xl mx-auto mb-16 border border-gold-solid/50 shadow-2xl relative flex items-center justify-center group fade-in-section">
+                    <!-- Placeholder for actual video embed -->
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&q=80" alt="Video Cover" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity">
+                    <a href="[LINK VIDEO]" target="_blank" class="relative z-10 bg-gold-solid/90 hover:bg-white text-charcoal w-20 h-20 rounded-full flex items-center justify-center transition-colors">
+                        <i class="ph-fill ph-play text-3xl ml-1"></i>
+                    </a>
+                    <div class="absolute bottom-4 left-4 text-xs tracking-widest uppercase">Lihat Rekaman Praktik [LINK VIDEO]</div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                    <!-- 01 Pembukaan -->
+                    <div class="fade-in-section">
+                        <h3 class="text-xs uppercase tracking-widest font-bold mb-4 text-gold-solid border-b border-gray-700 pb-2">01. Pembukaan</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed mb-4">
+                            Kegiatan diawali dengan salam, doa, dan pengecekan kesiapan belajar. Penerapan PSE terlihat saat guru menanyakan perasaan murid (mindfulness) menggunakan roda emosi. Apersepsi dan pertanyaan pemantik disampaikan dengan mengaitkan materi sebelumnya untuk membangun makna (Meaningful Learning) sebelum tujuan pembelajaran disampaikan.
+                        </p>
+                    </div>
+
+                    <!-- 02 Kegiatan Inti -->
+                    <div class="fade-in-section">
+                        <h3 class="text-xs uppercase tracking-widest font-bold mb-4 text-gold-solid border-b border-gray-700 pb-2">02. Kegiatan Inti</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Penguasaan materi ditunjukkan melalui penjelasan yang terstruktur. Instruksi kegiatan kelompok diberikan dengan jelas. Murid aktif berdiskusi, menggunakan media benda konkret, dan melakukan praktik pemecahan masalah. Diakhiri dengan presentasi kelompok di mana guru memberikan *feedback* positif secara merata.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 03 Evidence & 04 PSE -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="lg:col-span-2 bg-gray-900 p-8 border border-gray-800 fade-in-section">
+                        <h3 class="text-xs uppercase tracking-widest font-bold mb-6 text-gold-solid">03. Evidence of Student Engagement</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-400">
+                            <div class="flex items-center"><i class="ph ph-check-circle text-gold-solid mr-2"></i> Murid menjawab pertanyaan</div>
+                            <div class="flex items-center"><i class="ph ph-check-circle text-gold-solid mr-2"></i> Murid menggunakan media</div>
+                            <div class="flex items-center"><i class="ph ph-check-circle text-gold-solid mr-2"></i> Murid mengajukan pertanyaan</div>
+                            <div class="flex items-center"><i class="ph ph-check-circle text-gold-solid mr-2"></i> Murid berdiskusi kelompok</div>
+                            <div class="flex items-center"><i class="ph ph-check-circle text-gold-solid mr-2"></i> Murid menyelesaikan LKPD</div>
+                            <div class="flex items-center"><i class="ph ph-check-circle text-gold-solid mr-2"></i> Murid presentasi hasil</div>
+                        </div>
+                    </div>
+                    <div class="bg-gold-solid text-charcoal p-8 fade-in-section">
+                        <h3 class="text-xs uppercase tracking-widest font-bold mb-4 border-b border-charcoal/20 pb-2">04. Analisis PSE (Video)</h3>
+                        <ul class="text-xs space-y-2 font-medium">
+                            <li>• Self-awareness: (Cek perasaan awal)</li>
+                            <li>• Self-management: (Fokus mengerjakan tugas)</li>
+                            <li>• Social awareness: (Mendengarkan presentasi teman)</li>
+                            <li>• Relationship: (Kerja sama di kelompok)</li>
+                            <li>• Responsible decision: (Berbagi peran tugas)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 06, 07, 08 Refleksi Video -->
+                <div class="bg-gray-800 border border-gray-700 p-8 fade-in-section">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div>
+                            <h4 class="text-gold-solid text-xs font-bold uppercase mb-3">06. Yang Sudah Baik</h4>
+                            <p class="text-xs text-gray-300">Penguasaan kelas, penggunaan media konkret, dan penciptaan suasana belajar yang aman serta menyenangkan bagi murid.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-gold-solid text-xs font-bold uppercase mb-3">07. Yang Perlu Ditingkatkan</h4>
+                            <p class="text-xs text-gray-300">Manajemen waktu pada transisi kegiatan, pemerataan kesempatan bicara pada murid yang pendiam, dan kejelasan instruksi LKPD.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-gold-solid text-xs font-bold uppercase mb-3">08. Rencana Perbaikan</h4>
+                            <p class="text-xs font-serif italic text-white leading-relaxed">
+                                "Saya akan melakukan perbaikan dengan memperbaiki manajemen waktu, memperjelas instruksi tertulis, memberikan ruang partisipasi yang merata, dan memastikan media digunakan efektif sesuai tujuan."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nonmengajar" class="section py-24 bg-ivory">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Kegiatan Nonmengajar</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Beyond Classroom Experience</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <!-- Timeline (Vertical) -->
+                    <div class="lg:col-span-2 relative border-l border-gold-solid/30 pl-8 space-y-12 fade-in-section">
+                        <!-- Timeline Item 1 -->
+                        <div class="relative">
+                            <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-gold-solid ring-4 ring-ivory"></div>
+                            <span class="text-xs font-bold tracking-widest text-gold-dark uppercase">[TANGGAL]</span>
+                            <h3 class="font-serif text-xl font-bold mt-1 mb-2">[NAMA KEGIATAN: misal Piket Sekolah / Upacara]</h3>
+                            <div class="text-sm text-gray-600 mb-2"><strong>Tempat:</strong> [TEMPAT] | <strong>Peran:</strong> [PERAN]</div>
+                            <p class="text-sm text-gray-500 mb-2"><strong>Hasil:</strong> [HASIL KEGIATAN]</p>
+                            <p class="text-xs text-gray-500 bg-white p-3 border border-gray-100 rounded">
+                                <strong>Pembelajaran:</strong> Memahami prosedur operasional sekolah dan melatih tanggung jawab serta disiplin waktu (Manajemen Diri).
+                            </p>
+                        </div>
+                        
+                        <!-- Timeline Item 2 -->
+                        <div class="relative">
+                            <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-gold-solid ring-4 ring-ivory"></div>
+                            <span class="text-xs font-bold tracking-widest text-gold-dark uppercase">[TANGGAL]</span>
+                            <h3 class="font-serif text-xl font-bold mt-1 mb-2">[NAMA KEGIATAN: misal Rapat Guru / KKG]</h3>
+                            <div class="text-sm text-gray-600 mb-2"><strong>Tempat:</strong> [TEMPAT] | <strong>Peran:</strong> [PERAN]</div>
+                            <p class="text-sm text-gray-500 mb-2"><strong>Hasil:</strong> [HASIL KEGIATAN]</p>
+                            <p class="text-xs text-gray-500 bg-white p-3 border border-gray-100 rounded">
+                                <strong>Pembelajaran:</strong> Melatih keterampilan komunikasi profesional, mendengarkan aktif (Kesadaran Sosial), dan kerja sama tim antar pendidik.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Box -->
+                    <div class="space-y-8 fade-in-section">
+                        <div class="bg-white p-6 border-gold-thin shadow-sm">
+                            <h4 class="text-xs uppercase tracking-widest font-bold mb-3 border-b border-gray-100 pb-2">Ekosistem Sekolah</h4>
+                            <p class="text-sm text-gray-600">Kegiatan nonmengajar membantu memahami bahwa profesionalitas dibentuk tidak hanya di kelas. Ini adalah pengalaman nyata (Deep Learning) untuk memahami ekosistem pendidikan utuh.</p>
+                        </div>
+                        <div class="bg-white p-6 border-gold-thin shadow-sm">
+                            <h4 class="text-xs uppercase tracking-widest font-bold mb-3 border-b border-gray-100 pb-2">Keterkaitan PSE</h4>
+                            <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+                                <li>Komunikasi profesional (Relasi)</li>
+                                <li>Kerja sama (Sosial)</li>
+                                <li>Tanggung jawab tugas (Manajemen diri)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-charcoal p-6 text-center text-white">
+                            <h4 class="text-xs text-gold-solid uppercase tracking-widest mb-3">Refleksi Profesional</h4>
+                            <p class="font-serif italic text-sm">"Bagaimana kegiatan nonmengajar membantu saya memahami peran guru secara lebih utuh?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="penilaian" class="section py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Instrumen Penilaian Praktik</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Dosen Pembimbing & Guru Pamong</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                    <!-- Dosen Pembimbing -->
+                    <div class="bg-ivory p-8 border border-gray-100 hover-gold-shadow fade-in-section">
+                        <h3 class="text-lg font-serif font-bold text-center mb-6 uppercase tracking-wider text-charcoal border-b border-gold-solid pb-4">A. Penilaian Dosen Pembimbing</h3>
+                        
+                        <div class="flex justify-between items-center mb-6 bg-white p-4 border border-gray-100">
+                            <span class="text-xs uppercase font-bold text-gray-500">Nilai Akhir:</span>
+                            <span class="text-2xl font-serif text-gold-dark">[NILAI]</span>
+                        </div>
+
+                        <div class="space-y-4 text-sm text-gray-600">
+                            <div>
+                                <h4 class="font-bold text-xs uppercase text-gold-solid mb-1">Catatan / Feedback:</h4>
+                                <p class="bg-white p-3 italic border-l-2 border-gold-solid">[CATATAN DOSEN PEMBIMBING]</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mt-4">
+                                <div>
+                                    <h4 class="font-bold text-xs uppercase mb-1">Kekuatan:</h4>
+                                    <p class="text-xs">[ISI BERDASARKAN HASIL]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs uppercase mb-1">Area Peningkatan:</h4>
+                                    <p class="text-xs">[ISI BERDASARKAN HASIL]</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <a href="[LINK DOKUMEN]" class="text-xs border-b border-charcoal text-charcoal hover:text-gold-solid transition-colors uppercase tracking-widest">Lihat Instrumen (PDF)</a>
+                        </div>
+                    </div>
+
+                    <!-- Guru Pamong -->
+                    <div class="bg-ivory p-8 border border-gray-100 hover-gold-shadow fade-in-section">
+                        <h3 class="text-lg font-serif font-bold text-center mb-6 uppercase tracking-wider text-charcoal border-b border-gold-solid pb-4">B. Penilaian Guru Pamong</h3>
+                        
+                        <div class="flex justify-between items-center mb-6 bg-white p-4 border border-gray-100">
+                            <span class="text-xs uppercase font-bold text-gray-500">Nilai Akhir:</span>
+                            <span class="text-2xl font-serif text-gold-dark">[NILAI]</span>
+                        </div>
+
+                        <div class="space-y-4 text-sm text-gray-600">
+                            <div>
+                                <h4 class="font-bold text-xs uppercase text-gold-solid mb-1">Catatan / Feedback:</h4>
+                                <p class="bg-white p-3 italic border-l-2 border-gold-solid">[CATATAN GURU PAMONG]</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mt-4">
+                                <div>
+                                    <h4 class="font-bold text-xs uppercase mb-1">Kekuatan:</h4>
+                                    <p class="text-xs">[ISI]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs uppercase mb-1">Area Peningkatan:</h4>
+                                    <p class="text-xs">[ISI]</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <a href="[LINK DOKUMEN]" class="text-xs border-b border-charcoal text-charcoal hover:text-gold-solid transition-colors uppercase tracking-widest">Lihat Instrumen (PDF)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sintesis & Action Plan -->
+                <div class="bg-charcoal text-white p-8 lg:p-12 fade-in-section">
+                    <h3 class="text-center font-serif text-2xl text-gold-solid mb-8">C. Sintesis & Refleksi Umpan Balik</h3>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-0 relative">
+                        <!-- Connecting visual logic -->
+                        <div class="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gray-700 transform -translate-y-1/2 z-0"></div>
+                        
+                        <div class="relative z-10 flex-1 bg-gray-800 p-6 border border-gray-600 text-center mx-2 hover:-translate-y-2 transition-transform">
+                            <div class="text-xs text-gray-400 uppercase tracking-widest mb-2">Feedback</div>
+                            <i class="ph ph-chat-text text-3xl text-gold-solid mb-3"></i>
+                            <p class="text-xs text-gray-300">Umpan balik menyoroti manajemen waktu dan diferensiasi.</p>
+                        </div>
+                        
+                        <div class="relative z-10 flex-1 bg-gray-800 p-6 border border-gray-600 text-center mx-2 mt-4 md:mt-0 hover:-translate-y-2 transition-transform">
+                            <div class="text-xs text-gray-400 uppercase tracking-widest mb-2">Insight</div>
+                            <i class="ph ph-lightbulb text-3xl text-gold-solid mb-3"></i>
+                            <p class="text-xs text-gray-300">Pemahaman bahwa aktivitas harus disesuaikan durasi rasional.</p>
+                        </div>
+
+                        <div class="relative z-10 flex-1 bg-gold-solid text-charcoal p-6 border border-gold-solid text-center mx-2 mt-4 md:mt-0 hover:-translate-y-2 transition-transform shadow-lg">
+                            <div class="text-xs font-bold uppercase tracking-widest mb-2">Action Plan</div>
+                            <i class="ph ph-rocket-launch text-3xl mb-3"></i>
+                            <p class="text-xs font-medium">Merancang *timer* aktivitas dan LKPD dengan tingkat kesulitan variatif.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="refleksi" class="section py-24 bg-ivory bg-botanical-left">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Refleksi Diri</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Reflect • Learn • Improve</p>
+                </div>
+
+                <!-- What, So What, Now What -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 fade-in-section">
+                    <div class="bg-white p-8 border-t-4 border-gray-300 shadow-sm">
+                        <h3 class="font-serif text-2xl font-bold mb-2">What?</h3>
+                        <p class="text-xs uppercase tracking-widest text-gold-solid mb-4">Apa yang telah saya lakukan?</p>
+                        <p class="text-sm text-gray-600">Saya telah melaksanakan perancangan, pelaksanaan, dan asesmen pembelajaran mandiri. Menggunakan media konkret, mengelola dinamika kelas, dan mencoba mengintegrasikan PSE serta Pembelajaran Mendalam sesuai RPP yang disetujui.</p>
+                    </div>
+                    <div class="bg-white p-8 border-t-4 border-gold-solid shadow-sm transform md:-translate-y-4">
+                        <h3 class="font-serif text-2xl font-bold mb-2">So What?</h3>
+                        <p class="text-xs uppercase tracking-widest text-gold-solid mb-4">Apa yang saya pelajari?</p>
+                        <p class="text-sm text-gray-600">Keberhasilan: Murid antusias dengan media konkret. Tantangan: Diferensiasi instruksi belum maksimal. Saya belajar bahwa rencana sebaik apapun harus fleksibel merespons dinamika dan *mood* murid di kelas aktual.</p>
+                    </div>
+                    <div class="bg-white p-8 border-t-4 border-charcoal shadow-sm">
+                        <h3 class="font-serif text-2xl font-bold mb-2">Now What?</h3>
+                        <p class="text-xs uppercase tracking-widest text-gold-solid mb-4">Apa yang akan diperbaiki?</p>
+                        <p class="text-sm text-gray-600">Fokus utama: Manajemen waktu agar refleksi akhir tidak terburu-buru. Merancang LKPD yang terbagi level (diferensiasi), dan memastikan instruksi lisan diulangi secara tertulis di papan atau layar.</p>
+                    </div>
+                </div>
+
+                <!-- 3 Pillars Reflection -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- PSE -->
+                    <div class="bg-white border-gold-thin p-6 fade-in-section">
+                        <h4 class="text-sm uppercase tracking-widest font-bold mb-4 text-center border-b border-gray-100 pb-2">Refleksi PSE</h4>
+                        <ul class="text-xs space-y-3 text-gray-600">
+                            <li><strong class="text-gold-dark">Saya mengenali:</strong> Batas kesabaran saat kelas bising.</li>
+                            <li><strong class="text-gold-dark">Saya belajar mengelola:</strong> Intonasi suara agar tetap tenang.</li>
+                            <li><strong class="text-gold-dark">Saya belajar memahami:</strong> Kebutuhan murid yang lambat menulis.</li>
+                            <li><strong class="text-gold-dark">Saya membangun hubungan:</strong> Melalui sapaan personal.</li>
+                            <li><strong class="text-gold-dark">Saya mengambil keputusan:</strong> Mengubah metode saat murid bosan.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Deep Learning -->
+                    <div class="bg-white border-gold-thin p-6 fade-in-section">
+                        <h4 class="text-sm uppercase tracking-widest font-bold mb-4 text-center border-b border-gray-100 pb-2">Pembelajaran Mendalam</h4>
+                        <ul class="text-xs space-y-3 text-gray-600">
+                            <li><strong class="text-gold-dark">Mindful:</strong> Belajar pentingnya jeda napas (ice breaking tarik napas) sebelum inti pelajaran.</li>
+                            <li><strong class="text-gold-dark">Meaningful:</strong> Menghubungkan teori dengan kejadian nyata harian anak SD sangat efektif menumbuhkan nalar kritis.</li>
+                            <li><strong class="text-gold-dark">Joyful:</strong> Belajar bukan hanya tertawa, tapi 'flow' di mana anak merasa aman untuk mencoba salah.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bloom -->
+                    <div class="bg-white border-gold-thin p-6 fade-in-section">
+                        <h4 class="text-sm uppercase tracking-widest font-bold mb-4 text-center border-b border-gray-100 pb-2">Perkembangan Bloom</h4>
+                        <p class="text-xs text-gray-600 mb-2 text-center italic">Sebagai pendidik, saya berkembang dari:</p>
+                        <div class="text-[11px] space-y-1 mt-3">
+                            <div class="flex justify-between border-b border-gray-50 pb-1"><span>C1 Mengenali:</span> <span class="text-right w-1/2">Karakteristik umum.</span></div>
+                            <div class="flex justify-between border-b border-gray-50 pb-1"><span>C2 Memahami:</span> <span class="text-right w-1/2">Alasan perilaku anak.</span></div>
+                            <div class="flex justify-between border-b border-gray-50 pb-1"><span>C3 Menerapkan:</span> <span class="text-right w-1/2">Teori pedagogik di kelas.</span></div>
+                            <div class="flex justify-between border-b border-gray-50 pb-1"><span>C4 Menganalisis:</span> <span class="text-right w-1/2">Keberhasilan & kegagalan RPP.</span></div>
+                            <div class="flex justify-between border-b border-gray-50 pb-1"><span>C5 Mengevaluasi:</span> <span class="text-right w-1/2">Kualitas instrumen sendiri.</span></div>
+                            <div class="flex justify-between text-gold-dark font-bold"><span>C6 Mencipta:</span> <span class="text-right w-1/2">Solusi perbaikan RPP lanjut.</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commitment -->
+                <div class="bg-charcoal text-center p-12 fade-in-section relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gold-gradient opacity-10"></div>
+                    <h3 class="text-xs uppercase tracking-widest text-gold-solid mb-4 relative z-10">My Commitment</h3>
+                    <p class="font-serif text-xl lg:text-2xl text-white italic max-w-3xl mx-auto leading-relaxed relative z-10">
+                        “Saya berkomitmen untuk menjadi guru yang reflektif, adaptif, dan terus memperbaiki praktik pembelajaran berdasarkan kebutuhan peserta didik serta umpan balik dari proses pembelajaran.”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dokumentasi" class="section py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="font-serif text-3xl lg:text-4xl text-charcoal">Dokumentasi</h2>
+                    <div class="w-16 h-px bg-gold-solid mx-auto mt-4"></div>
+                    <p class="text-gray-500 mt-4 text-sm uppercase tracking-widest italic font-serif">Visual Evidence</p>
+                </div>
+
+                <!-- Filter Simulation (Visual only for elegance) -->
+                <div class="flex flex-wrap justify-center gap-4 mb-10 text-xs uppercase tracking-widest fade-in-section">
+                    <span class="px-4 py-1 border-b-2 border-gold-solid text-charcoal font-bold cursor-pointer">All</span>
+                    <span class="px-4 py-1 text-gray-400 cursor-not-allowed">Perencanaan</span>
+                    <span class="px-4 py-1 text-gray-400 cursor-not-allowed">Pelaksanaan</span>
+                    <span class="px-4 py-1 text-gray-400 cursor-not-allowed">Media</span>
+                    <span class="px-4 py-1 text-gray-400 cursor-not-allowed">Penilaian</span>
+                </div>
+
+                <!-- Masonry Gallery Placeholder using generic professional images -->
+                <div class="masonry fade-in-section">
+                    <div class="masonry-item relative group">
+                        <div class="border p-2 border-gold-thin bg-white">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&q=80" alt="Pelaksanaan" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <div class="mt-2 text-center"><p class="text-xs font-bold uppercase tracking-wider text-charcoal">02 - Pelaksanaan</p><p class="text-[10px] text-gray-500">Aktivitas Mengajar di Kelas</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="masonry-item relative group">
+                        <div class="border p-2 border-gold-thin bg-white">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="Perencanaan" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <div class="mt-2 text-center"><p class="text-xs font-bold uppercase tracking-wider text-charcoal">01 - Perencanaan</p><p class="text-[10px] text-gray-500">Penyusunan Modul Ajar</p></div>
+                        </div>
+                    </div>
+
+                    <div class="masonry-item relative group">
+                        <div class="border p-2 border-gold-thin bg-white">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80" alt="Aktivitas" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <div class="mt-2 text-center"><p class="text-xs font-bold uppercase tracking-wider text-charcoal">04 - Aktivitas Murid</p><p class="text-[10px] text-gray-500">Diskusi Kelompok</p></div>
+                        </div>
+                    </div>
+
+                    <div class="masonry-item relative group">
+                        <div class="border p-2 border-gold-thin bg-white">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Nonmengajar" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <div class="mt-2 text-center"><p class="text-xs font-bold uppercase tracking-wider text-charcoal">06 - Nonmengajar</p><p class="text-[10px] text-gray-500">Kegiatan Rapat Sekolah</p></div>
+                        </div>
+                    </div>
+
+                    <div class="masonry-item relative group">
+                        <div class="border p-2 border-gold-thin bg-white">
+                            <img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?w=600&q=80" alt="Media" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <div class="mt-2 text-center"><p class="text-xs font-bold uppercase tracking-wider text-charcoal">03 - Media</p><p class="text-[10px] text-gray-500">Penggunaan Media Interaktif</p></div>
+                        </div>
+                    </div>
+
+                     <div class="masonry-item relative group">
+                        <div class="border p-2 border-gold-thin bg-white">
+                            <img src="https://images.unsplash.com/photo-1590402494587-44b71d7772f6?w=600&q=80" alt="Penilaian" class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            <div class="mt-2 text-center"><p class="text-xs font-bold uppercase tracking-wider text-charcoal">05 - Penilaian</p><p class="text-[10px] text-gray-500">Proses Asesmen formatif</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="penutup" class="section pt-24 pb-12 bg-charcoal text-white relative">
+            <div class="max-w-4xl mx-auto px-4 text-center fade-in-section">
+                <i class="ph-fill ph-quotes text-5xl text-gold-solid mb-6"></i>
+                <h2 class="font-serif text-3xl mb-8">Closing Reflection</h2>
+                
+                <p class="text-sm text-gray-300 leading-loose mb-12">
+                    “Pengalaman Praktik Mengajar Mandiri ini menjadi titik tolak yang krusial. Merancang instruksi, mengelola kelas yang beragam (TaRL), menyelipkan napas PSE di setiap transisi, hingga melakukan asesmen yang bijak—semuanya mengajarkan saya bahwa menjadi pendidik adalah proses menjadi pembelajar seumur hidup. Praktik ini adalah bagian penting dalam perjalanan saya untuk terus belajar, melakukan refleksi, memperbaiki praktik pembelajaran, dan berkembang menjadi guru yang profesional serta berpihak pada kebutuhan peserta didik.”
+                </p>
+
+                <div class="py-12 border-t border-b border-gray-700 my-12">
+                    <p class="font-serif text-2xl lg:text-3xl italic text-gold-solid tracking-wide">
+                        "Teach with purpose.<br>
+                        Reflect with honesty.<br>
+                        Grow with intention."
+                    </p>
+                </div>
+
+                <div class="mt-16 mb-8">
+                    <h3 class="font-serif text-2xl tracking-widest uppercase mb-2">Terima Kasih</h3>
+                    <p class="text-xs text-gold-solid tracking-widest uppercase">Salam Pendidikan</p>
+                </div>
+            </div>
+
+            <!-- Learning Journey Visual Footer Element -->
+            <div class="max-w-6xl mx-auto px-4 mt-20 fade-in-section hidden md:block">
+                <div class="flex items-center justify-between relative pt-8 border-t border-gray-800">
+                    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-solid to-transparent"></div>
+                    
+                    <div class="text-center w-1/5 px-2">
+                        <div class="text-xs font-bold text-gold-solid uppercase mb-2">Plan</div>
+                        <p class="text-[10px] text-gray-400">Merancang pembelajaran berdasarkan kebutuhan murid.</p>
+                    </div>
+                    <div class="text-center w-1/5 px-2">
+                        <div class="text-xs font-bold text-gold-solid uppercase mb-2">Teach</div>
+                        <p class="text-[10px] text-gray-400">Melaksanakan pembelajaran mindful, meaningful, joyful.</p>
+                    </div>
+                    <div class="text-center w-1/5 px-2">
+                        <div class="text-xs font-bold text-gold-solid uppercase mb-2">Observe</div>
+                        <p class="text-[10px] text-gray-400">Mengamati respons & keterlibatan peserta didik.</p>
+                    </div>
+                    <div class="text-center w-1/5 px-2">
+                        <div class="text-xs font-bold text-gold-solid uppercase mb-2">Reflect</div>
+                        <p class="text-[10px] text-gray-400">Menganalisis keberhasilan & tantangan nyata.</p>
+                    </div>
+                    <div class="text-center w-1/5 px-2">
+                        <div class="text-xs font-bold text-gold-solid uppercase mb-2">Improve</div>
+                        <p class="text-[10px] text-gray-400">Tindak lanjut berdasar refleksi & feedback.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="mt-12 text-center text-[10px] text-gray-500 uppercase tracking-widest">
+                &copy; 2026 E-Portfolio PPG - [Ratih Fatimah]. All Rights Reserved.
+            </footer>
+        </section>
+    </main>
+
+    <!-- Floating Navigation (Back, Next, Top) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 transition-opacity duration-300" id="floating-nav">
+        <!-- Buttons injected via JS based on current section -->
+        <button id="btn-top" title="Back to Top" class="bg-charcoal text-white hover:bg-gold-solid p-3 rounded-full shadow-lg border border-gray-700 transition-colors hidden">
+            <i class="ph ph-arrow-up"></i>
+        </button>
+    </div>
+    
+    <!-- Floating 'Prev / Next' Panel (Desktop bottom center) -->
+    <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur border-t border-l border-r border-gray-200 px-6 py-2 rounded-t-xl shadow-[0_-5px_15px_rgba(0,0,0,0.05)] z-40 hidden md:flex items-center space-x-6 text-xs uppercase tracking-widest font-medium transition-transform translate-y-full" id="bottom-nav">
+        <a href="#" id="nav-prev" class="text-gray-500 hover:text-gold-solid flex items-center"><i class="ph ph-caret-left mr-1"></i> Back</a>
+        <span class="text-gray-300">|</span>
+        <a href="#home" class="text-charcoal hover:text-gold-solid">Home</a>
+        <span class="text-gray-300">|</span>
+        <a href="#" id="nav-next" class="text-gray-500 hover:text-gold-solid flex items-center">Next <i class="ph ph-caret-right ml-1"></i></a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sections Array in order
+            const sections = [
+                'home', 'profile', 'perencanaan', 'materi', 'media', 
+                'video', 'nonmengajar', 'penilaian', 'refleksi', 'dokumentasi', 'penutup'
+            ];
+            
+            let currentSectionIndex = 0;
+
+            // DOM Elements
+            const navbar = document.getElementById('navbar');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+            
+            const btnTop = document.getElementById('btn-top');
+            const bottomNav = document.getElementById('bottom-nav');
+            const btnPrev = document.getElementById('nav-prev');
+            const btnNext = document.getElementById('nav-next');
+
+            // Mobile Menu Toggle
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close mobile menu on click
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+
+            // Sticky Navbar styling on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-md');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                }
+                
+                // Show Back to Top
+                if (window.scrollY > 500) {
+                    btnTop.classList.remove('hidden');
+                    bottomNav.classList.remove('translate-y-full'); // Show bottom nav
+                } else {
+                    btnTop.classList.add('hidden');
+                    bottomNav.classList.add('translate-y-full'); // Hide bottom nav on home
+                }
+            });
+
+            // Back to top functionality
+            btnTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Intersection Observer for Animations and Active Nav State
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -20% 0px', // Trigger when section is roughly in middle
+                threshold: 0.1
+            };
+
+            const fadeObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            // Active Nav State Logic
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        currentSectionIndex = sections.indexOf(id);
+                        updateNavigationButtons();
+
+                        // Update top nav active state
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Fade in Animation Logic
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: Unobserve after fading in if you don't want repeat animation
+                        // fadeObserver.unobserve(entry.target); 
+                    }
+                });
+            }, fadeObserverOptions);
+
+            // Observe sections
+            document.querySelectorAll('section').forEach((sec) => {
+                sectionObserver.observe(sec);
+            });
+
+            // Observe fade-in elements
+            document.querySelectorAll('.fade-in-section').forEach(el => {
+                fadeObserver.observe(el);
+            });
+
+            // Update Bottom Navigation Links
+            function updateNavigationButtons() {
+                if (currentSectionIndex > 0) {
+                    btnPrev.href = `#${sections[currentSectionIndex - 1]}`;
+                    btnPrev.style.visibility = 'visible';
+                } else {
+                    btnPrev.style.visibility = 'hidden';
+                }
+
+                if (currentSectionIndex < sections.length - 1) {
+                    btnNext.href = `#${sections[currentSectionIndex + 1]}`;
+                    btnNext.style.visibility = 'visible';
+                } else {
+                    btnNext.style.visibility = 'hidden';
+                }
+            }
+
+            // Smooth scrolling for hash links (fallback if css scroll-smooth has issues in iframe)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Offset for fixed header
+                        const headerOffset = 70;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
